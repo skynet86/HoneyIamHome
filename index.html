@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="startLocation()">Send My Location</button>
+<button onclick="stopLocation()">Stop Sending</button>
+
+<p id="lcninfo"></p>
+
+<script>
+    var x = document.getElementById("lcninfo");
+    var w = window.navigator;
+    var time = 10000;
+    var refreshIntervalId;
+    function getLocation() {
+        if (w.geolocation) {
+            w.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude;
+    }
+
+    function startLocation() {
+        refreshIntervalId = setInterval(getLocation, time);
+    }
+
+    function stopLocation()
+    {
+        clearInterval(refreshIntervalId);
+    }
+
+</script>
+
+</body>
+</html>
